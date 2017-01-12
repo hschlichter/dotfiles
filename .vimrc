@@ -1,73 +1,42 @@
-version 6.0
-if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-" inoremap <D-BS>
-" inoremap <M-BS>
-inoremap <M-Down> }
-inoremap <D-Down> <C-End>
-inoremap <M-Up> {
-inoremap <D-Up> <C-Home>
-noremap! <M-Right> <C-Right>
-noremap! <D-Right> <End>
-noremap! <M-Left> <C-Left>
-noremap! <D-Left> <Home>
-nmap gx <Plug>NetrwBrowseX
-noremap <M-Down> }
-noremap <D-Down> <C-End>
-noremap <M-Up> {
-noremap <D-Up> <C-Home>
-noremap <M-Right> <C-Right>
-noremap <D-Right> <End>
-noremap <M-Left> <C-Left>
-noremap <D-Left> <Home>
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cfile>"),0)
-vmap <BS> "-d
-let &cpo=s:cpo_save
-unlet s:cpo_save
-
 execute pathogen#infect()
 
+filetype plugin on
+
+" Colors
 set t_ut= " improve screen clearing by using the background color
 set background=dark
 syntax enable
 colorscheme molokai
-set enc=utf-8
-set term=screen-256color
-let $TERM='screen-256color'
 
-set guifont=Inconsolata-dz\ for\ Powerline:h12:cANSI
-set backspace=indent,eol,start
-set fileencodings=ucs-bom,utf-8,default,latin1
-set guitablabel=%M%t
-set helplang=en
-set langmenu=none
-set mouse=a
-set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
-set termencoding=utf-8
-set window=51
-set visualbell
-set nowrap
+""""" Search
 set hlsearch
 set incsearch
 set ignorecase
+
+""""" Visual
 set number
 set relativenumber
 set cursorline
 " set cursorcolumn
-set wildmenu
-set wildmode=list:longest,full
+set visualbell
+
+""""" Formatting
 set smartindent
 set textwidth=0
 set wrapmargin=0
 set shiftwidth=4
 set tabstop=4
+" set expandtab
 set textwidth=0
 set wrapmargin=0
-set backup
-" set expandtab
+set nowrap
+set backspace=indent,eol,start
 
-filetype plugin on
+""""" Misc
+set wildmenu
+set wildmode=list:longest,full
+set backup
+set mouse=a
 
 """"" Set Leader key
 let mapleader=" "
@@ -111,15 +80,12 @@ autocmd FileType markdown set tw=80
 
 """""" CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-"\ 'dir':  '\v[\/]\.(git|hg|svn|gitkeep|node_modules|_build|artifacts/build)$',
-
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\v[\/]\.(git|hg|svn|gitkeep)$|external|artifacts|build|documentation',
-  \ 'file': '\v\.(exe|so|dll|log|gif|jpg|jpeg|png|psd|DS_Store|gitattributes)$'
+  \ 'file': '\v\.(exe|so|dll|log|gif|jpg|jpeg|png|psd|DS_Store|gitattributes|unity)$'
   \ }
 " let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+" let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 let g:ctrlp_max_files=1000000
 let g:ctrlp_match_window = 'bottom,order:btt,min:40,max:40,results:40'
 
