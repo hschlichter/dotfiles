@@ -37,6 +37,7 @@ set wildmenu
 set wildmode=list:longest,full
 set backup
 set mouse=a
+set backupdir=~/.vim/backup
 
 """"" Set Leader key
 let mapleader=" "
