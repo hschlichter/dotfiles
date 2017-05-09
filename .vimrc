@@ -2,6 +2,8 @@ execute pathogen#infect()
 
 filetype plugin on
 
+set exrc " Load working dir vimrc, for project specific vimrc
+
 " Colors
 set t_ut= " improve screen clearing by using the background color
 set background=dark
