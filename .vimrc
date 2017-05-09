@@ -82,20 +82,12 @@ nnoremap <Down> :bd<cr>
 set laststatus=2
 set ttimeoutlen=50
 
-""""""" Markdown
-autocmd BufNewFile,BufReadPost *.md,*.markdown set filetype=markdown
-autocmd FileType markdown set tw=80
-
 """""" CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/]\.(git|hg|svn|gitkeep)$|external|artifacts|build|documentation',
-  \ 'file': '\v\.(exe|so|dll|log|gif|jpg|jpeg|png|psd|DS_Store|gitattributes|unity)$'
-  \ }
-" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-" let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
-let g:ctrlp_max_files=1000000
-let g:ctrlp_match_window = 'bottom,order:btt,min:40,max:40,results:40'
+if executable('ag')
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+let g:ctrlp_match_window = 'bottom,order:btt,min:10,max:40,results:40'
 
 """""
 set iskeyword+=-
@@ -104,11 +96,13 @@ set iskeyword+=-
 highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
 
-""""" Grep
+""""" Searching
 map <Leader>g :grep -rniI --include=* <cword> .
 
-""""" FSwitch
-map <Leader>o :FSHere<cr>
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+map <Leader>a :Ack! <cword>
 
 """"" Show invisible characters
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
@@ -117,7 +111,5 @@ map <Leader>l :set list!<cr>
 """"" CTags key map
 nnoremap <leader>j <c-]>
 nnoremap <leader>k <c-t>
-nnoremap <leader>h :tp<cr>
-nnoremap <leader>l :tn<cr>
 
  "vim: set ft=vim :
