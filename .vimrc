@@ -38,16 +38,23 @@ set wildmode=list:longest,full
 set backup
 set mouse=a
 set backupdir=~/.vim/backup
+set directory=~/.vim/backup
 
 """"" Set Leader key
 let mapleader=" "
 
 """"" Flip buffers
-nmap <C-b> :b#<cr>
+nmap <leader>b :b#<cr>
 
 """""" Syntax
 syn on
 let jsx_ext_required = 0
+
+"""""" tmux navigator
+nnoremap <c-h> :TmuxNavigateLeft<cr>
+nnoremap <c-j> :TmuxNavigateDown<cr>
+nnoremap <c-k> :TmuxNavigateUp<cr>
+nnoremap <c-l> :TmuxNavigateRight<cr>
 
 """""" NERDTree
 nmap <leader>n :NERDTreeToggle<cr>
@@ -108,9 +115,9 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 map <Leader>l :set list!<cr>
 
 """"" CTags key map
-nnoremap <c-j> <c-]>
-nnoremap <c-k> <c-t>
-nnoremap <c-h> :tp<cr>
-nnoremap <c-l> :tn<cr>
+nnoremap <leader>j <c-]>
+nnoremap <leader>k <c-t>
+nnoremap <leader>h :tp<cr>
+nnoremap <leader>l :tn<cr>
 
  "vim: set ft=vim :

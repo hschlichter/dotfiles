@@ -1,0 +1,11 @@
+TAB: menu-complete
+"\e[Z": "\e-1\C-i"
+
+set show-all-if-ambiguous on
+set completion-ignore-case on
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+"\e\e[D": backward-word
+"\e\e[C": forward-word

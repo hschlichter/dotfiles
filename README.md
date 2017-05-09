@@ -1,9 +1,9 @@
-# dotvim
-Repo with all my vim configuration. Including plugins.
+# dotfiles
+Repo with all my dotfile configuration. 
 
 ```sh
 # Go get it!
-git clone http://github.com/hschlichter/dotvim.git ~/.vim
+git clone http://github.com/hschlichter/dotfiles.git ~/dotfiles
 
 # Run init script.
 ./init.sh
