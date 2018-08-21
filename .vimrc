@@ -1,6 +1,31 @@
-execute pathogen#infect()
+set nocompatible
+filetype off
 
-filetype plugin on
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'git://github.com/spf13/vim-colors.git'
+Plugin 'git://github.com/christoomey/vim-tmux-navigator.git'
+Plugin 'git://github.com/vim-airline/vim-airline.git'
+Plugin 'git://github.com/ctrlpvim/ctrlp.vim.git'
+Plugin 'git://github.com/scrooloose/nerdtree.git'
+Plugin 'git://github.com/tomtom/tcomment_vim.git'
+Plugin 'git://github.com/tpope/vim-repeat.git'
+Plugin 'git://github.com/tpope/vim-surround.git'
+Plugin 'git://github.com/tpope/vim-dispatch.git'
+Plugin 'git://github.com/sheerun/vim-polyglot.git'
+Plugin 'git://github.com/editorconfig/editorconfig-vim.git'
+Plugin 'git://github.com/mileszs/ack.vim.git'
+Plugin 'git://github.com/benmills/vimux.git'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
 
 set exrc " Load working dir vimrc, for project specific vimrc
 
