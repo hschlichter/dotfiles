@@ -28,10 +28,10 @@ set textwidth=0
 set wrapmargin=0
 set shiftwidth=4
 set tabstop=4
-" set expandtab
 set textwidth=0
 set wrapmargin=0
 set nowrap
+set expandtab
 set backspace=indent,eol,start
 
 """"" Misc
@@ -60,14 +60,9 @@ nnoremap <c-l> :TmuxNavigateRight<cr>
 
 """""" NERDTree
 nmap <leader>n :NERDTreeToggle<cr>
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowHidden=1
 
 """""" File specific options
-autocmd BufRead,BufNewFile * set noexpandtab
-autocmd BufRead,BufNewFile *.elm *.ex *.exs set expandtab
-autocmd BufRead,BufNewFile *.yml set expandtab
 autocmd BufRead,BufNewFile *.yml set tabstop=2
 autocmd BufRead,BufNewFile *.yml set shiftwidth=2
 autocmd BufRead,BufNewFile * set shiftwidth=4
@@ -113,5 +108,8 @@ map <Leader>l :set list!<cr>
 """"" CTags key map
 nnoremap <leader>j <c-]>
 nnoremap <leader>k <c-t>
+
+""""" Common Vimux commands
+nnoremap <leader>gd :call VimuxRunCommand("git diff " . @%)<cr>
 
  "vim: set ft=vim :
