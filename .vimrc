@@ -7,7 +7,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'git://github.com/spf13/vim-colors.git'
+
+" Plugins
 Plugin 'git://github.com/christoomey/vim-tmux-navigator.git'
 Plugin 'git://github.com/vim-airline/vim-airline.git'
 Plugin 'git://github.com/ctrlpvim/ctrlp.vim.git'
@@ -21,9 +22,11 @@ Plugin 'git://github.com/editorconfig/editorconfig-vim.git'
 Plugin 'git://github.com/mileszs/ack.vim.git'
 Plugin 'git://github.com/benmills/vimux.git'
 Plugin 'git://github.com/bfrg/vim-cpp-modern.git'
-" Plugin 'git://github.com/Valloric/YouCompleteMe.git'
 
-" All of your Plugins must be added before the following line
+" Color schemes
+Plugin 'git://github.com/spf13/vim-colors.git'
+
+" Required. Plugins available after
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -114,7 +117,7 @@ set ttimeoutlen=50
 """""" CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 if executable('ag')
-	let g:ctrlp_user_command = 'ag -l --nocolor -i -g ""'
+    g:ctrlp_user_command = 'ag -l --nocolor -i -g ""'
 endif
 let g:ctrlp_match_window = 'bottom,order:btt,min:10,max:40,results:40'
 let g:ctrlp_regexp = 1
@@ -148,10 +151,10 @@ nnoremap <leader>db :VimuxRunCommand("b ".@%.":".line("."))<cr>
 
 """"" Ag - Silver searcher
 let g:ackprg = 'ag --vimgrep --smart-case'
-cnoreabbrev ag Ack                                                                           
-cnoreabbrev aG Ack                                                                           
-cnoreabbrev Ag Ack                                                                           
-cnoreabbrev AG Ack 
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
 
 """"" Go to file without different extension
 nnoremap <leader>o :e %<.
