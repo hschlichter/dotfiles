@@ -1,0 +1,67 @@
+%include ~/unity-meta/Configs/Mercurial/format.inc.ini
+
+[hostsecurity]
+disabletls10warning = true
+
+[ui]
+username = Henrik Schlichter <henriksc@unity3d.com>
+editor = /usr/local/bin/vim
+# merge = vimdiff
+merge = internal:merge3
+# merge = araxismergetool
+
+[extensions]
+largefiles=
+eol=
+rebase=
+transplant=
+progress=
+purge=
+strip=
+histedit=
+share=
+record=
+blackbox=
+mercurial_keyring=
+shelve=
+extdiff=
+
+[diff]
+git = True
+
+[merge-tools]
+# vimdiff.executable = /usr/local/bin/vim
+# vimdiff.args = -d $base $local $output $other +close +close
+araxismergetool.premerge = True
+araxismergetool.args = $other $base $local $output
+araxismergetool.executable = /Applications/Araxis Merge.app/Contents/Utilities/araxishgmerge
+araxismergetool.checkconflict = True
+araxismergetool.binary = True
+araxismergetool.gui =  True
+
+[extdiff]
+cmd.vimdiff = vimdiff
+cmd.arxdiff = /Applications/Araxis Merge.app/Contents/Utilities/compare
+opts.arxdiff = -wait -title1:$plabel1 -title2:$clabel -2 $parent $child
+
+[tortoisehg]
+graphopt = True
+forcerepotab = True
+fullpath = True
+autoresolve = True
+vdiff = arxdiff
+
+[format]
+aggressivemergedeltas = yes
+
+[experimental]
+maxdeltachainspan = 500MB
+
+[auth]
+ono.schemes = https
+ono.prefix = ono.unity3d.com
+ono.username = henriksc
+
+[paths]
+draft = https://ono.unity3d.com/unity/draft
+

@@ -1,41 +1,43 @@
 set nocompatible
 filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+hi Search cterm=NONE ctermfg=white ctermbg=darkblue
+hi Visual cterm=NONE ctermfg=white ctermbg=darkblue
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'git://github.com/spf13/vim-colors.git'
-Plugin 'git://github.com/christoomey/vim-tmux-navigator.git'
-Plugin 'git://github.com/vim-airline/vim-airline.git'
-Plugin 'git://github.com/ctrlpvim/ctrlp.vim.git'
-Plugin 'git://github.com/scrooloose/nerdtree.git'
-Plugin 'git://github.com/tomtom/tcomment_vim.git'
-Plugin 'git://github.com/tpope/vim-repeat.git'
-Plugin 'git://github.com/tpope/vim-surround.git'
-Plugin 'git://github.com/tpope/vim-dispatch.git'
-Plugin 'git://github.com/sheerun/vim-polyglot.git'
-Plugin 'git://github.com/editorconfig/editorconfig-vim.git'
-Plugin 'git://github.com/mileszs/ack.vim.git'
-Plugin 'git://github.com/benmills/vimux.git'
-Plugin 'git://github.com/bfrg/vim-cpp-modern.git'
-" Plugin 'git://github.com/Valloric/YouCompleteMe.git'
+call plug#begin()
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'sainnhe/edge' " Color scheme
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tcomment_vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'benmills/vimux'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
+
 filetype plugin indent on    " required
-
-
 
 set exrc " Load working dir vimrc, for project specific vimrc
 
 " Colors
 set t_ut= " improve screen clearing by using the background color
 set background=dark
+set signcolumn=yes
+let g:edge_style = 'neon'
+let g:edge_disable_italic_comment = 1
+colorscheme edge
 syntax enable
-colorscheme molokai
+
+hi Search cterm=NONE ctermfg=white ctermbg=darkblue
+hi Visual cterm=NONE ctermfg=white ctermbg=darkblue
 
 """"" Search
 set hlsearch
@@ -46,7 +48,6 @@ set ignorecase
 set number
 set relativenumber
 set cursorline
-" set cursorcolumn
 set visualbell
 
 """"" Formatting
@@ -73,24 +74,19 @@ set lazyredraw
 set ttyfast
 set cpt=.,w,b
 set splitbelow
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 set mouse=a
+set completeopt-=preview
+set completefunc=LanguageClient#complete
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-""""" Set Leader key
-let mapleader=" "
-
-""""" Flip buffers
-nmap <leader>bb :b#<cr>
-nmap <leader>bd :bp\|bd#<cr>
-
-"""""" tmux navigator
-nnoremap <c-h> :TmuxNavigateLeft<cr>
-nnoremap <c-j> :TmuxNavigateDown<cr>
-nnoremap <c-k> :TmuxNavigateUp<cr>
-nnoremap <c-l> :TmuxNavigateRight<cr>
+let g:LanguageClient_changeThrottle = 0.5
+let g:LanguageClient_useVirtualText = "No"
+let g:LanguageClient_diagnosticsEnable = 0 
 
 """""" NERDTree
-nmap <leader>n :NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 
 """""" File specific options
@@ -105,60 +101,99 @@ let g:airline#extensions#tabline#enabled = 0
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 
-" nnoremap <Left> :bp<cr>
-" nnoremap <Right> :bn<cr>
-" nnoremap <Down> :bd<cr>
 set laststatus=2
 set ttimeoutlen=50
 
-"""""" CtrlP
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-if executable('ag')
-	let g:ctrlp_user_command = 'ag -l --nocolor -i -g ""'
+if executable('rg')
+    set grepprg=rg\ --color=never
+    let g:ackprg = 'rg --vimgrep --color=never'
 endif
-let g:ctrlp_match_window = 'bottom,order:btt,min:10,max:40,results:40'
-let g:ctrlp_regexp = 1
-let g:ctrlp_by_filename = 1
-let g:ctrlp_show_hidden = 1
-" let g:ctrlp_lazy_update = 1
-" nnoremap <cs-p> :CtrlPBuffer<cr>
 
-"""""
 set iskeyword+=-
 
 """"" Show trailing whitespace and spaces before a tab:
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
-
-""""" Searching
-map <Leader>a :Ack! <cword>
+" highlight ExtraWhitespace ctermbg=red guibg=red
+" autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
 
 """"" Show invisible characters
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-map <Leader>l :set list!<cr>
 
-""""" CTags key map
-nnoremap <leader>j <c-]>
-nnoremap <leader>k <c-t>
-nnoremap <leader><C-j> :15sp<cr>:exec("tag ".expand("<cword>"))<cr>
-
-""""" Common Vimux commands
-nnoremap <leader>gd :call VimuxRunCommand("git diff " . @%)<cr>
-nnoremap <leader>db :VimuxRunCommand("b ".@%.":".line("."))<cr>
-
-""""" Ag - Silver searcher
-let g:ackprg = 'ag --vimgrep --smart-case'
-cnoreabbrev ag Ack                                                                           
-cnoreabbrev aG Ack                                                                           
-cnoreabbrev Ag Ack                                                                           
-cnoreabbrev AG Ack 
-
-""""" Go to file without different extension
-nnoremap <leader>o :e %<.
-
-""""" C/C++ highlighting
 let g:cpp_no_function_highlight = 1
 let g:cpp_simple_highlight = 1
 let g:cpp_named_requirements_highlight = 1
+
+"""""" Mappings
+let mapleader=" "
+""" Flip buffers
+nnoremap <leader>bb :b#<cr>
+nnoremap <leader>bd :bp\|bd#<cr>
+nnoremap <leader>o :e %<.
+""" tmux navigator
+nnoremap <c-h> :TmuxNavigateLeft<cr>
+nnoremap <c-j> :TmuxNavigateDown<cr>
+nnoremap <c-k> :TmuxNavigateUp<cr>
+nnoremap <c-l> :TmuxNavigateRight<cr>
+""" NERDTree
+nmap <leader>nn :NERDTreeToggle<cr>
+nmap <leader>nf :NERDTreeFind<cr>
+""" fzf
+nnoremap <c-p> :Files<cr>
+nnoremap <c-b> :Buffers<cr>
+nnoremap <c-t> :Tags<cr>
+nnoremap <leader>pp :Files<cr>
+nnoremap <leader>pb :Buffers<cr>
+nnoremap <leader>pt :Tags<cr>
+nnoremap <leader>fl :Lines<cr>
+nnoremap <leader>fb :BLines<cr>
+nnoremap <leader>ft :BTags<cr>
+nnoremap <leader>rg :Rg <c-r><c-w>
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+""" CTags key map
+nnoremap <leader>j <c-]>
+nnoremap <leader>k <c-t>
+" nnoremap <leader><C-j> :15sp<cr>:exec("tag ".expand("<cword>"))<cr>
+nnoremap <leader><C-j> :exec("ptag ".expand("<cword>"))<cr>
+""" Unity specific commands
+nnoremap <leader>ub :VimuxRunCommand("unity_build_editor_debug")<cr>
+nnoremap <leader>ur :VimuxRunCommand("unity_run_editor")<cr>
+nnoremap <leader>ud :VimuxRunCommand("unity_debug_editor")<cr>
+""" misc
+nnoremap <Leader>l :set list!<cr>
+nnoremap <leader>db :VimuxRunCommand("b ".@%.":".line("."))<cr>
+""" CtrlSF
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+let g:ctrlsf_winsize = '30%'
+
+let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['gopls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
  "vim: set ft=vim :
