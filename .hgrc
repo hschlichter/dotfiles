@@ -5,7 +5,7 @@ disabletls10warning = true
 
 [ui]
 username = Henrik Schlichter <henriksc@unity3d.com>
-editor = /usr/local/bin/vim
+editor = /usr/bin/vim
 # merge = vimdiff
 merge = internal:merge3
 # merge = araxismergetool

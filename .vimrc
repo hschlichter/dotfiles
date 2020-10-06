@@ -16,10 +16,17 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'sainnhe/edge' " Color scheme
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'benmills/vimux'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete-clangx'
+  let g:deoplete#enable_at_startup = 1
+endif
 
 call plug#end()
 
@@ -100,6 +107,7 @@ autocmd BufRead,BufNewFile *.jam set syntax=OFF
 let g:airline#extensions#tabline#enabled = 0
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline_theme='bubblegum'
 
 set laststatus=2
 set ttimeoutlen=50
