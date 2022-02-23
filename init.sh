@@ -5,5 +5,6 @@ ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles ~/.vim
 ln -s ~/dotfiles/.hgrc ~/.hgrc
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/dotfiles/.rgignore ~/.rgignore
 git submodule init
 git submodule update
