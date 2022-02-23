@@ -1,0 +1,23 @@
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = Henrik Schlichter
+	email = henriksc@unity3d.com
+[core]
+	autocrlf = false
+[pull]
+	rebase = true
+[format]
+	pretty = %C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset)) %C(Cyan)%an: %C(reset)%s
+[log]
+	decorate = short
+	date = short
+[alias]
+	st = status -sb
+	wt = worktree
+	last = log -1 HEAD
+[merge]
+	renamelimit = 10000

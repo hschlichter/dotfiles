@@ -59,9 +59,10 @@ maxdeltachainspan = 500MB
 
 [auth]
 ono.schemes = https
-ono.prefix = ono.unity3d.com
+ono.prefix = ono-direct.unity3d.com
 ono.username = henriksc
 
 [paths]
 draft = https://ono.unity3d.com/unity/draft
+from-git = https://ono.unity3d.com/unity/from-git
 

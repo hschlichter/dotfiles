@@ -5,6 +5,8 @@ $%b "
 
 CASE_SENSITIVE="false"
 
+bindkey -e
+
 setopt autocd
 setopt autopushd
 setopt pushdignoredups
@@ -27,24 +29,6 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-# vi mode
-bindkey -v
-
-# fd - cd to selected directory
-# fd() {
-#   local dir
-#   dir=$(find ${1:-.} -path '*/\.*' -prune \
-#                   -o -type d -print 2> /dev/null | fzf +m) &&
-#   cd "$dir"
-# }
-
-fd() {
-    local dir
-    dir=$(dirs -p | fzf) 
-    cd "$dir"
-    # cd /Users/henrikschlichter/Downloads
-}
-
 # fp - find process
 fp() {
     ps -ef | fzf
@@ -63,22 +47,23 @@ function zle-line-init zle-keymap-select {
    zle reset-prompt
 }
 
-zle -N zle-line-init
-zle -N zle-keymap-select
+# zle -N zle-line-init
+# zle -N zle-keymap-select
 
 export KEYTIMEOUT=1
 
 # Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
+# bindkey -M menuselect 'h' vi-backward-char
+# bindkey -M menuselect 'k' vi-up-line-or-history
+# bindkey -M menuselect 'l' vi-forward-char
+# bindkey -M menuselect 'j' vi-down-line-or-history
+# bindkey -v '^?' backward-delete-char
 
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history"
 
 export CLICOLOR=1
 export PATH="/usr/local/sbin:$PATH"

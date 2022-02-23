@@ -10,9 +10,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install } }
 Plug 'dyng/ctrlsf.vim'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'sainnhe/edge' " Color scheme
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-airline/vim-airline'
@@ -25,7 +25,7 @@ Plug 'benmills/vimux'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/deoplete-clangx'
-  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_at_startup = 0
 endif
 
 call plug#end()
@@ -141,6 +141,11 @@ nnoremap <c-h> :TmuxNavigateLeft<cr>
 nnoremap <c-j> :TmuxNavigateDown<cr>
 nnoremap <c-k> :TmuxNavigateUp<cr>
 nnoremap <c-l> :TmuxNavigateRight<cr>
+""" Window/pane resizing
+noremap <Down> :resize +5<CR>
+noremap <Up> :resize -5<CR>
+noremap <Right> :vertical:resize -5<CR>
+noremap <Left> :vertical:resize +5<CR>
 """ NERDTree
 nmap <leader>nn :NERDTreeToggle<cr>
 nmap <leader>nf :NERDTreeFind<cr>
@@ -165,9 +170,12 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+let g:fzf_layout = {'down': '40%'}
+
 """ CTags key map
 nnoremap <leader>j <c-]>
 nnoremap <leader>k <c-t>
+nnoremap <leader>js :exec("tselect /".expand("<cword>"))<cr>
 " nnoremap <leader><C-j> :15sp<cr>:exec("tag ".expand("<cword>"))<cr>
 nnoremap <leader><C-j> :exec("ptag ".expand("<cword>"))<cr>
 """ Unity specific commands
@@ -203,5 +211,9 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" Hex
+nnoremap <leader>x :%!xxd<cr>
+nnoremap <leader>xr :%!xxd -r<cr>
 
  "vim: set ft=vim :
