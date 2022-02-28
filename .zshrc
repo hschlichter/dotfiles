@@ -1,7 +1,19 @@
+setopt prompt_subst
+
 # Enable colors and change prompt:
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}
+
+# Git branch prompt
+autoload -Uz add-zsh-hook vcs_info
+add-zsh-hook chpwd update_branch_name
+function update_branch_name() {
+    branch_name=$(git branch --show-current 2> /dev/null)
+}
+add-zsh-hook precmd update_prompt
+function update_prompt() {
+    PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%} ${branch_name}
 $%b "
+}
 
 CASE_SENSITIVE="false"
 
@@ -10,8 +22,6 @@ bindkey -e
 setopt autocd
 setopt autopushd
 setopt pushdignoredups
-
-# set -o magicequalsubst
 
 # History in cache directory:
 HISTSIZE=10000
@@ -38,17 +48,6 @@ fp() {
 fk() {
     ps -ef | fzf | awk {'print $2'} | xargs kill -9
 }
-
-# Normal mode indicator
-precmd() { RPROMPT="" }
-function zle-line-init zle-keymap-select {
-   VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-   RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-   zle reset-prompt
-}
-
-# zle -N zle-line-init
-# zle -N zle-keymap-select
 
 export KEYTIMEOUT=1
 
