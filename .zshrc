@@ -5,7 +5,7 @@ autoload -U colors && colors
 
 # Git branch prompt
 autoload -Uz add-zsh-hook vcs_info
-add-zsh-hook chpwd update_branch_name
+add-zsh-hook precmd update_branch_name
 function update_branch_name() {
     branch_name=$(git branch --show-current 2> /dev/null)
 }
@@ -71,6 +71,8 @@ export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$(go env GOPATH)
 export EDITOR=vim
 export VISUAL=vim
+
+eval $(/opt/homebrew/bin/brew shellenv)
 
 export NVM_DIR="/Users/henrikschlichter/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -9,8 +9,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install } }
+" Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'sainnhe/edge' " Color scheme
