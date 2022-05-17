@@ -20,4 +20,4 @@
 	wt = worktree
 	last = log -1 HEAD
 [merge]
-	renamelimit = 10000
+	renamelimit = 128000

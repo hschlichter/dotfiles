@@ -5,14 +5,14 @@ hi Search cterm=NONE ctermfg=white ctermbg=darkblue
 hi Visual cterm=NONE ctermfg=white ctermbg=darkblue
 
 call plug#begin()
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" Plug '/usr/local/opt/fzf'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+"Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'dyng/ctrlsf.vim'
+"Plug 'dyng/ctrlsf.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'sainnhe/edge' " Color scheme
 Plug 'christoomey/vim-tmux-navigator'
@@ -25,8 +25,8 @@ Plug 'benmills/vimux'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/deoplete-clangx'
-  let g:deoplete#enable_at_startup = 0
+  " Plug 'Shougo/deoplete-clangx'
+  let g:deoplete#enable_at_startup = 1
 endif
 
 call plug#end()
@@ -197,21 +197,21 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 let g:ctrlsf_winsize = '30%'
 
-let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'go': ['gopls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
-    \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+"     \ 'go': ['gopls'],
+"     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"     \ 'python': ['/usr/local/bin/pyls'],
+"     \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
+"     \ }
+"
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" " Or map each action separately
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Hex
 nnoremap <leader>x :%!xxd<cr>

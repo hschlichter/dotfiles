@@ -67,8 +67,8 @@ export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history"
 export CLICOLOR=1
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH=$PATH:$(go env GOPATH)/bin
-export GOPATH=$(go env GOPATH)
+# export PATH=$PATH:$(go env GOPATH)/bin
+# export GOPATH=$(go env GOPATH)
 export EDITOR=vim
 export VISUAL=vim
 
