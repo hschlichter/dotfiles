@@ -21,3 +21,11 @@
 	last = log -1 HEAD
 [merge]
 	renamelimit = 128000
+	tool = nvimdiff
+[diff]
+	tool = nvimdiff
+[difftool]
+    prompt = true
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+    

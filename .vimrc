@@ -5,14 +5,8 @@ hi Search cterm=NONE ctermfg=white ctermbg=darkblue
 hi Visual cterm=NONE ctermfg=white ctermbg=darkblue
 
 call plug#begin()
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-"Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-"Plug 'dyng/ctrlsf.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'sainnhe/edge' " Color scheme
 Plug 'christoomey/vim-tmux-navigator'
@@ -20,14 +14,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'benmills/vimux'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  " Plug 'Shougo/deoplete-clangx'
-  let g:deoplete#enable_at_startup = 1
-endif
 
 call plug#end()
 
@@ -120,16 +107,9 @@ endif
 
 set iskeyword+=-
 
-""""" Show trailing whitespace and spaces before a tab:
-" highlight ExtraWhitespace ctermbg=red guibg=red
-" autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
-
 """"" Show invisible characters
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-
-let g:cpp_no_function_highlight = 1
-let g:cpp_simple_highlight = 1
-let g:cpp_named_requirements_highlight = 1
+nnoremap <Leader>l :set list!<cr>
 
 """""" Mappings
 let mapleader=" "
@@ -172,49 +152,16 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 let g:fzf_layout = {'down': '40%'}
+let g:fzf_preview_window = []
 
 """ CTags key map
 nnoremap <leader>j <c-]>
 nnoremap <leader>k <c-t>
 nnoremap <leader>js :exec("tselect /".expand("<cword>"))<cr>
-" nnoremap <leader><C-j> :15sp<cr>:exec("tag ".expand("<cword>"))<cr>
 nnoremap <leader><C-j> :exec("ptag ".expand("<cword>"))<cr>
-""" Unity specific commands
-nnoremap <leader>ub :VimuxRunCommand("unity_build_editor_debug")<cr>
-nnoremap <leader>ur :VimuxRunCommand("unity_run_editor")<cr>
-nnoremap <leader>ud :VimuxRunCommand("unity_debug_editor")<cr>
-""" misc
-nnoremap <Leader>l :set list!<cr>
-nnoremap <leader>db :VimuxRunCommand("b ".@%.":".line("."))<cr>
-""" CtrlSF
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-vmap     <C-F>F <Plug>CtrlSFVwordExec
-nmap     <C-F>n <Plug>CtrlSFCwordPath
-nmap     <C-F>p <Plug>CtrlSFPwordPath
-nnoremap <C-F>o :CtrlSFOpen<CR>
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-let g:ctrlsf_winsize = '30%'
 
-" let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
-" let g:LanguageClient_serverCommands = {
-"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-"     \ 'go': ['gopls'],
-"     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-"     \ 'python': ['/usr/local/bin/pyls'],
-"     \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
-"     \ }
-"
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" " Or map each action separately
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" Hex
-nnoremap <leader>x :%!xxd<cr>
-nnoremap <leader>xr :%!xxd -r<cr>
+""" Diff
+nmap <leader>dn ]c
+nmap <leader>dp [c
 
  "vim: set ft=vim :
