@@ -1,6 +1,5 @@
 setopt prompt_subst
 
-# Enable colors and change prompt:
 autoload -U colors && colors
 
 # Git branch prompt
@@ -15,64 +14,39 @@ function update_prompt() {
 $%b "
 }
 
-CASE_SENSITIVE="false"
-
 bindkey -e
 
 setopt autocd
 setopt autopushd
 setopt pushdignoredups
 
-# History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt share_history
 setopt append_history
 setopt inc_append_history
 
-# Basic auto/tab complete:
-autoload -Uz compinit
+autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' menu select
-zstyle ':completion:*' special-dirs true
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
-
-# fp - find process
-fp() {
-    ps -ef | fzf
- }
-
-# fk - find process to kill
-fk() {
-    ps -ef | fzf | awk {'print $2'} | xargs kill -9
-}
 
 export KEYTIMEOUT=1
-
-# Use vim keys in tab complete menu:
-# bindkey -M menuselect 'h' vi-backward-char
-# bindkey -M menuselect 'k' vi-up-line-or-history
-# bindkey -M menuselect 'l' vi-forward-char
-# bindkey -M menuselect 'j' vi-down-line-or-history
-# bindkey -v '^?' backward-delete-char
+export CLICOLOR=1
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export EDITOR=nvim
+export VISUAL=nvim
 
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history"
-
-export CLICOLOR=1
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-# export PATH=$PATH:$(go env GOPATH)/bin
-# export GOPATH=$(go env GOPATH)
-export EDITOR=vim
-export VISUAL=vim
+export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history --bind ctrl-n:down,ctrl-p:up --reverse"
 
 eval $(/opt/homebrew/bin/brew shellenv)
 
-export NVM_DIR="/Users/henrikschlichter/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# git clone https://github.com/Aloxaf/fzf-tab ~/.zsh/fzf-tab
+source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
+
+# git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

@@ -8,6 +8,7 @@
 	email = henriksc@unity3d.com
 [core]
 	autocrlf = false
+	editor = nvim
 [pull]
 	rebase = true
 [format]
@@ -29,3 +30,7 @@
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
     
+[push]
+	autoSetupRemote = true
+[init]
+	defaultBranch = master

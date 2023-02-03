@@ -92,34 +92,5 @@ alias ull='unity_editor_log_less'
 alias ulf='unity_editor_log_follow'
 
 alias unity_binary2text='./build/MacEditor/arm64/Debug/Unity.app/Contents/Tools/binary2text'
-
-# Unity specific alias' shorthand
-# alias ubed='unity_build_editor_debug'
-# alias uber='unity_build_editor_release'
-# alias ubedn='unity_build_editor_debug_nolump'
-# alias ubern='unity_build_editor_debug_nolump'
-# alias ured='unity_run_editor_debug'
-# alias urer='unity_run_editor_release'
-# alias ude='unity_debug_editor'
-# alias uun='unity_utr_native'
-# alias uue='unity_utr_editor'
-# alias uui='unity_utr_integration'
-# alias upf='unity_projectfiles'
-# alias uel='unity_editor_log'
-# alias uelf='unity_editor_log_follow'
-# alias b2t='unity_binary2text'
-
-# Unity specific alias' super-shorthand
-# alias uba="unity_build_editor_arm64_debug"
-# alias ura="unity_run_editor_arm64_debug"
-# alias uda="unity_debug_editor_arm64_debug"
-# alias ub='ubed'
-# alias ubr='uber'
-# alias urd='ured'
-# alias urr='urer'
-# alias ur='urd'
-# alias ud='ude'
-# alias ux='unity_xcode'
-# alias up='upf'
-# alias ul='uel'
-# alias ulf='uelf'
+alias unity_compile_commands='python3 ../dag-json-to-compile-commands-json/dag_parser.py -d . -i ./artifacts/MacEditorArm64_a64.dag.json'
+alias ucc=unity_compile_commands
