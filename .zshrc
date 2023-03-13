@@ -22,17 +22,23 @@ setopt pushdignoredups
 
 HISTSIZE=100000
 SAVEHIST=100000
-setopt share_history
+# setopt share_history
 setopt append_history
 setopt inc_append_history
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)
 
 export KEYTIMEOUT=1
 export CLICOLOR=1
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -45,8 +51,7 @@ export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history --bind ctrl-n:down,ctrl-p:
 eval $(/opt/homebrew/bin/brew shellenv)
 
 # git clone https://github.com/Aloxaf/fzf-tab ~/.zsh/fzf-tab
-source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
+# source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
