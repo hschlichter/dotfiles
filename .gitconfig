@@ -5,7 +5,7 @@
 	clean = git-lfs clean -- %f
 [user]
 	name = Henrik Schlichter
-	email = henriksc@unity3d.com
+	email = henrik.schlichter@gmail.com
 [core]
 	autocrlf = false
 	editor = nvim
