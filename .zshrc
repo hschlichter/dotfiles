@@ -2,18 +2,6 @@ setopt prompt_subst
 
 autoload -U colors && colors
 
-# Git branch prompt
-autoload -Uz add-zsh-hook vcs_info
-add-zsh-hook precmd update_branch_name
-function update_branch_name() {
-    branch_name=$(git branch --show-current 2> /dev/null)
-}
-add-zsh-hook precmd update_prompt
-function update_prompt() {
-    PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%} ${branch_name}
-$%b "
-}
-
 bindkey -e
 
 setopt autocd
@@ -44,14 +32,15 @@ export VISUAL=nvim
 
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files'
+
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history --bind ctrl-n:down,ctrl-p:up --reverse"
+export FZF_DEFAULT_OPTS="--history=$HOME/.fzf_history --bind ctrl-n:down,ctrl-p:up --reverse --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
 
 eval $(/opt/homebrew/bin/brew shellenv)
 
-# git clone https://github.com/Aloxaf/fzf-tab ~/.zsh/fzf-tab
-# source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
 
-# git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+export WASMTIME_HOME="$HOME/.wasmtime"
+export PATH="$WASMTIME_HOME/bin:$PATH"
