@@ -22,13 +22,16 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
 
-export KEYTIMEOUT=1
-export CLICOLOR=1
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="$WASMTIME_HOME/bin:$PATH"
+
+export KEYTIMEOUT=1
+export CLICOLOR=1
 export EDITOR=nvim
 export VISUAL=nvim
+export WASMTIME_HOME="$HOME/.wasmtime"
 
 [ -f "$HOME/.aliasrc" ] && source "$HOME/.aliasrc"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -41,6 +44,3 @@ eval $(/opt/homebrew/bin/brew shellenv)
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-
-export WASMTIME_HOME="$HOME/.wasmtime"
-export PATH="$WASMTIME_HOME/bin:$PATH"
